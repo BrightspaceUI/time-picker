@@ -318,7 +318,7 @@ Accessible, Localized Time Picker Input Element
 						this._closeTimesList(false);
 						break;
 					case 'enter':
-						if (!this._openTimesList()) {
+						if (this.$.dropdown.opened) {
 							this._closeTimesList(true);
 						}
 						break;

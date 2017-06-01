@@ -221,18 +221,16 @@
 								this.focusElement();
 							});
 
-							test('opens when enter is pressed', function(done) {
+							test('does not open when enter is pressed', function(done) {
+								var element = this.element;
 								var inputElement = this.inputElement;
-								var calls = 0;
 								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
-									if (calls++ === 0) {
-										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
-									} else {
-										done();
-									}
+									MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 								});
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									MockInteractions.pressEnter(inputElement);
+									expect(element.$.dropdown.opened).to.equal(false);
+									done();
 								});
 								this.focusElement();
 							});
