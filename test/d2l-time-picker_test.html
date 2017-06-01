@@ -178,6 +178,17 @@
 								this.focusElement();
 							});
 
+							test('hidden when value is modified', function(done) {
+								var element = this.element;
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									element.value = 'foobars';
+								});
+								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
+									done();
+								});
+								this.element.focus();
+							});
+
 							test('opens when down is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var calls = 0;
@@ -304,7 +315,7 @@
 								this.element.value = '';
 							});
 
-							test('updates time when blurred', function(done) {
+							test('does not update time when blurred', function(done) {
 								var self = this;
 								// Wait for dropdown to register listeners
 								Polymer.RenderStatus.afterNextRender(self.element.$.dropdown, function() {
@@ -318,7 +329,7 @@
 									self.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 										setTimeout(function() {
 											expect(!!self.element.$.dropdown.opened).to.be.false;
-											expect(self.element.value).to.equal(listbox.items[5].textContent.trim());
+											expect(self.element.value).to.not.equal(listbox.items[5].textContent.trim());
 											done();
 										});
 									});

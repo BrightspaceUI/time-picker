@@ -155,8 +155,7 @@ Accessible, Localized Time Picker Input Element
 
 			listeners: {
 				'iron-select': '_scrollSelectedItemIntoView',
-				'dropdown.click': '_handleTimesListClick',
-				'd2l-dropdown-close': '_handleDropdownClose'
+				'dropdown.click': '_handleTimesListClick'
 			},
 
 			keyBindings: {
@@ -177,6 +176,7 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			_valueChanged: function(value) {
+				this._closeTimesList(false);
 				var date = this.parser.parseTime(value);
 				if (date) {
 					this._dontUpdateValue = true;
@@ -267,18 +267,12 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			_closeTimesList: function(updateValue) {
-				this._dontUpdateValueOnClose = !updateValue;
 				this.$.dropdown.close();
-			},
-
-			_handleDropdownClose: function() {
-				if (this._dontUpdateValueOnClose) {
-					this._dontUpdateValueOnClose = false;
-					return;
-				}
-				var listBox = this.$$('iron-selector');
-				if (listBox.selectedItem) {
-					this.value = listBox.selectedItem.textContent.trim();
+				if (updateValue) {
+					var listBox = this.$$('iron-selector');
+					if (listBox.selectedItem) {
+						this.value = listBox.selectedItem.textContent.trim();
+					}
 				}
 			},
 
