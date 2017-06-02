@@ -243,7 +243,7 @@ Accessible, Localized Time Picker Input Element
 
 			_updateTimes: function(timeInterval, formatter) {
 				var date = new Date(0, 0, 0, 0, 0, 0, 0);
-				var length = 24 * 60 / timeInterval;
+				var length = Math.ceil(24 * 60 / timeInterval);
 				var times = new Array(length);
 				for (var i = 0; i < length; i++) {
 					date.setHours(Math.floor(i / (60 / timeInterval)));
