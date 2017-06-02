@@ -4,6 +4,7 @@
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-content.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../d2l-typography/d2l-typography-shared-styles.html">
 <script type="text/javascript" src="https://s.brightspace.com/lib/d2l-intl/0.2.1/Intl.js"></script>
 <script type="text/javascript" src="https://s.brightspace.com/lib/moment.js/2.15.2/moment.min.js"></script>
 <script type="text/javascript" src="https://s.brightspace.com/lib/moment-timezone/0.5.10/moment-timezone-with-data.min.js"></script>
@@ -20,6 +21,13 @@ Accessible, Localized Time Picker Input Element
 		<style include="d2l-input-styles">
 			:host {
 				display: inline-block;
+				width: 8rem;
+			}
+
+			.timezone {
+				@apply --d2l-body-small-text;
+			    font-style: italic;
+			    padding-top: 0.1em;
 			}
 
 			iron-selector {
@@ -61,6 +69,7 @@ Accessible, Localized Time Picker Input Element
 					aria-activedescendant$={{selectedListboxId}}
 					on-focus="_onTimeInputFocused"
 					value="{{value::input}}">
+				<span class="timezone">{{zoneName}}</span>
 			</div>
 
 			<d2l-dropdown-content
@@ -126,6 +135,10 @@ Accessible, Localized Time Picker Input Element
 					observer: '_timezoneChanged',
 					value: moment.tz.guess()
 				},
+				zoneName: {
+					type: String,
+					computed: '_computeZoneName(timezone)'
+				},
 				formatter: {
 					type: Object,
 					readOnly: true,
@@ -188,6 +201,11 @@ Accessible, Localized Time Picker Input Element
 
 			_timezoneChanged: function() {
 				this.isAttached && this.calculateTime();
+			},
+
+			_computeZoneName: function(timezone) {
+				var tz = moment.tz(timezone);
+				return tz && tz.tz() ? tz.tz() : timezone;
 			},
 
 			// Update the value given the specified hours and minutes

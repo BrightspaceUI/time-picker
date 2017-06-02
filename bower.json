@@ -6,7 +6,8 @@
     "polymer": "Polymer/polymer#1.9 - 2",
     "iron-selector": "PolymerElements/iron-selector#1 - 2",
     "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#1 - 2",
-    "d2l-dropdown": "^5.0.6"
+    "d2l-dropdown": "^5.0.6",
+    "d2l-typography": "^5.4.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
