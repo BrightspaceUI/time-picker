@@ -4,9 +4,8 @@
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-content.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../d2l-typography/d2l-typography-shared-styles.html">
 <script type="text/javascript" src="https://s.brightspace.com/lib/d2l-intl/0.2.1/Intl.js"></script>
-<script type="text/javascript" src="https://s.brightspace.com/lib/moment.js/2.15.2/moment.min.js"></script>
-<script type="text/javascript" src="https://s.brightspace.com/lib/moment-timezone/0.5.10/moment-timezone-with-data.min.js"></script>
 
 <!--
 `d2l-time-picker`
@@ -19,7 +18,27 @@ Accessible, Localized Time Picker Input Element
 	<template strip-whitespace>
 		<style include="d2l-input-styles">
 			:host {
-				display: inline-block;
+				display: inline-flex;
+				flex-direction: column;
+			}
+
+			d2l-dropdown-content {
+				--d2l-dropdown-verticaloffset: 10px;
+			}
+
+			.d2l-dropdown-opener {
+				width: 7rem;
+			}
+
+			.d2l-dropdown-opener .d2l-input {
+				width: 6rem;
+			}
+
+			.timezone {
+				@apply --d2l-body-compact-text;
+				color: var(--d2l-color-tungsten);
+				font-style: italic;
+				padding-top: 10px;
 			}
 
 			iron-selector {
@@ -28,12 +47,10 @@ Accessible, Localized Time Picker Input Element
 				width: 100%;
 			}
 			.d2l-times-item {
-				box-sizing: border-box;
 				border-top: 1px solid transparent;
 				border-bottom: 1px solid var(--d2l-color-gypsum);
-				list-style-type: none;
-				width: calc(100% - 2px);
-				padding: 0.75rem 1.5rem;
+				font-size: 0.8rem;
+				padding: 0.75rem 1rem;
 				cursor: pointer;
 			}
 			.d2l-times-item:last-of-type {
@@ -81,10 +98,11 @@ Accessible, Localized Time Picker Input Element
 					</div>
 				</d2l-dropdown-content>
 		</d2l-dropdown>
+		<span class="timezone">{{timezone}}</span>
 	</template>
 
 	<script>
-	/* global d2lIntl, moment */
+	/* global d2lIntl */
 	(function() {
 		var instances = 0;
 		Polymer({
@@ -102,11 +120,13 @@ Accessible, Localized Time Picker Input Element
 				},
 				hours: {
 					type: Number,
-					notify: true
+					notify: true,
+					value: 0
 				},
 				minutes: {
 					type: Number,
-					notify: true
+					notify: true,
+					value: 0
 				},
 				value: {
 					type: String,
@@ -121,11 +141,7 @@ Accessible, Localized Time Picker Input Element
 					type: Object,
 					value: {}
 				},
-				timezone: {
-					type: String,
-					observer: '_timezoneChanged',
-					value: moment.tz.guess()
-				},
+				timezone: String,
 				formatter: {
 					type: Object,
 					readOnly: true,
@@ -186,10 +202,6 @@ Accessible, Localized Time Picker Input Element
 				}
 			},
 
-			_timezoneChanged: function() {
-				this.isAttached && this.calculateTime();
-			},
-
 			// Update the value given the specified hours and minutes
 			updateValue: function(hours, minutes) {
 				if (!this.formatter || this._dontUpdateValue) {
@@ -202,15 +214,7 @@ Accessible, Localized Time Picker Input Element
 				this.value = this.formatter.formatTime(dateDisplay);
 			},
 
-			// Set the value to the current hour in the given timezone
-			calculateTime: function() {
-				var date = new Date();
-				var localeDate = moment.tz(date, this.timezone);
-				this.updateValue(localeDate.hour(), 0);
-			},
-
 			attached: function() {
-				this.calculateTime();
 				document.body.addEventListener('focus', this.__onAutoCloseFocus, true);
 				document.body.addEventListener('click', this.__onAutoCloseClick, true);
 			},
@@ -235,7 +239,7 @@ Accessible, Localized Time Picker Input Element
 			// Select the item closest the the hours and minutes given
 			updateSelection: function(hours, minutes) {
 				var index = Math.round((hours * 60 + minutes) / this.timeInterval);
-				if (index >= this.times.length) {
+				if (index >= (this.times && this.times.length)) {
 					index = 0;
 				}
 				this.$$('iron-selector').selectIndex(index);
@@ -302,7 +306,7 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			_onTimeInputFocused: function() {
-				this._dropdownWidth = this.$$('input').offsetWidth;
+				this._dropdownWidth = this.offsetWidth;
 				this._openTimesList();
 			},
 

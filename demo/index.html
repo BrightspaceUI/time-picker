@@ -24,13 +24,16 @@
 						<label>Minutes: <input value="{{minutes::input}}"/></label>
 						<label>Interval: <input value="{{interval::input}}"/></label>
 						<br/>
-						<label>Time picker: <d2l-time-picker
+						<label for="time-picker-combobox">Time picker:</label>
+						<d2l-time-picker
+							id="time-picker"
 							time-interval="{{interval}}"
 							hours="{{hours}}"
 							minutes="{{minutes}}"
 							locale="{{locale}}"
 							timezone="{{timezone}}"
-						></d2l-time-picker></label>
+						></d2l-time-picker>
+						<span>I am beside the time picker</span>
 					</template>
 				</dom-bind>
 			</div>
