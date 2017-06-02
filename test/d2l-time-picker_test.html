@@ -116,15 +116,20 @@
 									expectations[i] = formatter.formatTime(date);
 								}
 
-								selector.addEventListener('iron-items-changed', function() {
+								function doTest() {
 									var items = selector.items;
 									var times = items.map(function(item) {
 										return item.textContent.trim();
 									});
 									expect(times).to.deep.equal(expectations);
 									done();
-								});
+								}
 								this.focusElement();
+								if (selector.items.length) {
+									doTest();
+								} else {
+									selector.addEventListener('iron-items-changed', doTest);
+								}
 							});
 
 							test('has all times separated by timeInterval (20) in a 24 hour period', function(done) {
@@ -137,16 +142,22 @@
 									date.setMinutes((i % 3) * 20);
 									expectations[i] = formatter.formatTime(date);
 								}
-								selector.addEventListener('iron-items-changed', function() {
+
+								function doTest() {
 									var items = selector.items;
 									var times = items.map(function(item) {
 										return item.textContent.trim();
 									});
 									expect(times).to.deep.equal(expectations);
 									done();
-								});
+								}
 								this.element.timeInterval = 20;
 								this.focusElement();
+								if (selector.items.length) {
+									doTest();
+								} else {
+									selector.addEventListener('iron-items-changed', doTest);
+								}
 							});
 
 							test('shown when input is focused', function(done) {
