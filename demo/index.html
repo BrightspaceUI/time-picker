@@ -20,7 +20,17 @@
 						<br/>
 						<label>Timezone: <input value="{{timezone::input}}"/></label>
 						<br/>
-						<label>Time picker: <d2l-time-picker locale="{{locale}}" timezone="{{timezone}}"></d2l-time-picker></label>
+						<label>Hours: <input value="{{hours::input}}"/></label>
+						<label>Minutes: <input value="{{minutes::input}}"/></label>
+						<label>Interval: <input value="{{interval::input}}"/></label>
+						<br/>
+						<label>Time picker: <d2l-time-picker
+							time-interval="{{interval}}"
+							hours="{{hours}}"
+							minutes="{{minutes}}"
+							locale="{{locale}}"
+							timezone="{{timezone}}"
+						></d2l-time-picker></label>
 					</template>
 				</dom-bind>
 			</div>
