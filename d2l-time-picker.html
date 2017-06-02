@@ -222,8 +222,7 @@ Accessible, Localized Time Picker Input Element
 
 			// Set the value to the current hour in the given timezone
 			calculateTime: function() {
-				var date = new Date();
-				var localeDate = moment.tz(date, this.timezone);
+				var localeDate = moment.tz(this.timezone);
 				this.updateValue(localeDate.hour(), 0);
 			},
 
