@@ -63,15 +63,16 @@
 						});
 
 						suite('hours/minutes properties', function() {
-							test('hours defaults to Date.now()', function() {
-								var date = new Date();
-								expect(this.element.hours).to.equal(date.getHours());
+							test('hours/minutes defaults to 0', function() {
+								expect(this.element.hours).to.equal(0);
+								expect(this.element.minutes).to.equal(0);
 							});
 
 							test('updates value property when set', function() {
 								this.element.minutes = 1;
 
 								var date = new Date();
+								date.setHours(0);
 								date.setMinutes(1);
 								var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
 								var formattedTime = formatter.formatTime(date);
@@ -80,9 +81,8 @@
 						});
 
 						suite('value property', function() {
-							test('defaults to Date.now()', function() {
-								var date = new Date();
-								date.setMinutes(0);
+							test('defaults to 0', function() {
+								var date = new Date(0, 0, 0, 0, 0, 0, 0);
 								var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
 								var formattedTime = formatter.formatTime(date);
 								expect(this.element.value).to.equal(formattedTime);
@@ -359,36 +359,6 @@
 								expect(listbox.selected).to.equal(0);
 							});
 						});
-					});
-				});
-
-				suite('timezone attribute', function() {
-					setup(function() {
-						this.clock = sinon.useFakeTimers(0);
-						// HACK HACK HACK forces _timezoneChanged to be called after Date is mocked
-						this.element.timezone = '';
-					});
-
-					teardown(function() {
-						this.clock.restore();
-					});
-
-					test('EST', function() {
-						this.element.timezone = 'EST';
-
-						expect(this.element.hours).to.equal(19);
-					});
-
-					test('America/Los_Angeles', function() {
-						this.element.timezone = 'America/Los_Angeles';
-
-						expect(this.element.hours).to.equal(16);
-					});
-
-					test('UTC', function() {
-						this.element.timezone = 'UTC';
-
-						expect(this.element.hours).to.equal(0);
 					});
 				});
 			});
