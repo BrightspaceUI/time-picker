@@ -20,18 +20,11 @@ Accessible, Localized Time Picker Input Element
 			:host {
 				display: inline-flex;
 				flex-direction: column;
+				width: 6rem;
 			}
 
 			d2l-dropdown-content {
 				--d2l-dropdown-verticaloffset: 10px;
-			}
-
-			.d2l-dropdown-opener {
-				width: 7rem;
-			}
-
-			.d2l-dropdown-opener .d2l-input {
-				width: 6rem;
 			}
 
 			.timezone {
@@ -86,6 +79,7 @@ Accessible, Localized Time Picker Input Element
 					id="dropdown"
 					min-width="[[_dropdownWidth]]"
 					max-width="[[_dropdownWidth]]"
+					align-start
 					no-auto-close
 					no-pointer
 					no-auto-focus
@@ -308,7 +302,7 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			_onTimeInputFocused: function() {
-				this._dropdownWidth = this.offsetWidth;
+				this._dropdownWidth = this.offsetWidth + 20;
 				this._openTimesList();
 			},
 
