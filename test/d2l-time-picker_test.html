@@ -78,6 +78,13 @@
 								var formattedTime = formatter.formatTime(date);
 								expect(this.element.value).to.equal(formattedTime);
 							});
+
+							test('fires a single d2l-time-picker-time-changed event', function(done) {
+								this.element.addEventListener('d2l-time-picker-time-changed', function() {
+									done();
+								});
+								this.element.minutes = 1;
+							});
 						});
 
 						suite('value property', function() {
@@ -96,6 +103,16 @@
 
 								expect(this.element.hours).to.equal(date.getHours());
 								expect(this.element.minutes).to.equal(date.getMinutes());
+							});
+
+							test('fires a single d2l-time-picker-time-changed event', function(done) {
+								this.element.addEventListener('d2l-time-picker-time-changed', function() {
+									done();
+								});
+								var date = new Date(Date.now() + 60000);
+								var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
+								var formattedTime = formatter.formatTime(date);
+								this.element.value = formattedTime;
 							});
 
 							test('value is maintained when value is set to invalid time', function() {
