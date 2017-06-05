@@ -196,6 +196,11 @@ Accessible, Localized Time Picker Input Element
 					this._dontUpdateValue = true;
 					this.hours = date.getHours();
 					this.minutes = date.getMinutes();
+					this.fire('d2l-time-picker-time-changed', {
+						hours: this.hours,
+						minutes: this.minutes,
+						value: this.value
+					});
 					this._dontUpdateValue = false;
 				}
 			},
