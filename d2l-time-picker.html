@@ -263,6 +263,7 @@ Accessible, Localized Time Picker Input Element
 				if (this.$.dropdown.opened) {
 					return false;
 				}
+				this.updateValue(this.hours, this.minutes);
 				this.$.dropdown.open();
 				// listboxId is not set until the dropdown is open because the listbox
 				// isn't actually added to the DOM until dropdown is opened for the first time
@@ -293,16 +294,21 @@ Accessible, Localized Time Picker Input Element
 				});
 			},
 
+			_onBlur: function() {
+				this.updateValue(this.hours, this.minutes);
+				return this._closeTimesList(false);
+			},
+
 			__onAutoCloseFocus: function(e) {
 				if (Polymer.dom(e).localTarget !== this) {
-					return this._closeTimesList(false);
+					this._onBlur();
 				}
 			},
 
 			__onAutoCloseClick: function() {
 				this.async(function() {
 					if (Polymer.dom(document).activeElement !== this) {
-						return this._closeTimesList(false);
+						this._onBlur();
 					}
 				}, 1);
 			},
@@ -326,6 +332,8 @@ Accessible, Localized Time Picker Input Element
 					case 'enter':
 						if (this.$.dropdown.opened) {
 							this._closeTimesList(true);
+						} else {
+							this.updateValue(this.hours, this.minutes);
 						}
 						break;
 					case 'down':
