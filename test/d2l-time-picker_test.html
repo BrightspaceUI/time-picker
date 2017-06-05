@@ -205,6 +205,27 @@
 								this.focusElement();
 							});
 
+							test('resets to valid value when down is pressed', function(done) {
+								var inputElement = this.inputElement;
+								var element = this.element;
+								var calls = 0;
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (calls++ === 0) {
+										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
+									} else {
+										done();
+									}
+								});
+								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
+									var oldValue = element.value;
+									element.value = 'foozleberries';
+									expect(element.value).to.equal('foozleberries');
+									MockInteractions.pressAndReleaseKeyOn(inputElement, 40);
+									expect(element.value).to.equal(oldValue);
+								});
+								this.focusElement();
+							});
+
 							test('opens when up is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var calls = 0;
@@ -217,6 +238,27 @@
 								});
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 38);
+								});
+								this.focusElement();
+							});
+
+							test('resets to valid value when up is pressed', function(done) {
+								var inputElement = this.inputElement;
+								var element = this.element;
+								var calls = 0;
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (calls++ === 0) {
+										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
+									} else {
+										done();
+									}
+								});
+								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
+									var oldValue = element.value;
+									element.value = 'foozleberries';
+									expect(element.value).to.equal('foozleberries');
+									MockInteractions.pressAndReleaseKeyOn(inputElement, 38);
+									expect(element.value).to.equal(oldValue);
 								});
 								this.focusElement();
 							});
@@ -313,6 +355,17 @@
 								this.element.value = '';
 							});
 
+							test('resets to valid value when closed when enter is pressed', function() {
+								var inputElement = this.inputElement;
+								var element = this.element;
+								var oldValue = this.element.value;
+								this.element.value = 'foozleberries';
+
+								expect(element.value).to.equal('foozleberries');
+								MockInteractions.pressEnter(inputElement);
+								expect(element.value).to.equal(oldValue);
+							});
+
 							test('does not update time when blurred', function(done) {
 								var self = this;
 								// Wait for dropdown to register listeners
@@ -336,6 +389,15 @@
 									self.element.minutes = 0;
 									self.focusElement();
 								});
+							});
+
+							test('resets to valid value when blurred', function() {
+								this.focusElement();
+								var oldValue = this.element.value;
+								this.element.value = 'foozleberries';
+								expect(this.element.value).to.equal('foozleberries');
+								this.focusFocusable();
+								expect(this.element.value).to.equal(oldValue);
 							});
 
 							test('time closest to time property is selected', function() {
