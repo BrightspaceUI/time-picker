@@ -296,14 +296,14 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			__onAutoCloseFocus: function(e) {
-				if (Polymer.dom(e).localTarget !== this) {
+				if (Polymer.dom(e).rootTarget !== this.$$('input')) {
 					this._onBlur();
 				}
 			},
 
 			__onAutoCloseClick: function() {
 				this.async(function() {
-					if (Polymer.dom(document).activeElement !== this) {
+					if (Polymer.dom(this.root).activeElement !== this.$$('input')) {
 						this._onBlur();
 					}
 				}, 1);
