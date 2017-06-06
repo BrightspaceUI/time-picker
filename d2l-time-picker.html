@@ -213,14 +213,15 @@ Accessible, Localized Time Picker Input Element
 
 			// Update the value given the specified hours and minutes
 			updateValue: function(hours, minutes) {
+				hours = +hours;
+				minutes = +minutes;
 				if (!this.formatter || this._dontUpdateValue) {
 					return;
 				}
-				if (typeof hours !== 'number' && typeof minutes !== 'number') {
-					return;
+				if (hours >= 0 && minutes >= 0) {
+					var dateDisplay = new Date(0, 0, 0, hours || 0, minutes || 0, 0, 0);
+					this.value = this.formatter.formatTime(dateDisplay);
 				}
-				var dateDisplay = new Date(0, 0, 0, hours || 0, minutes || 0, 0, 0);
-				this.value = this.formatter.formatTime(dateDisplay);
 			},
 
 			attached: function() {
