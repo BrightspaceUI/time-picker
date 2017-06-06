@@ -73,6 +73,7 @@ Accessible, Localized Time Picker Input Element
 					class="d2l-input"
 					role="combobox"
 					aria-autocomplete="list"
+					aria-label$="{{label}}"
 					aria-owns$="{{listboxId}}"
 					aria-activedescendant$={{selectedListboxId}}
 					on-focus="_onTimeInputFocused"
@@ -161,7 +162,8 @@ Accessible, Localized Time Picker Input Element
 				boundary: Object,
 				_dropdownWidth: String,
 				listboxId: String,
-				selectedListboxId: String
+				selectedListboxId: String,
+				label: String
 			},
 
 			observers: [
