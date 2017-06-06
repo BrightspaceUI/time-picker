@@ -20,6 +20,10 @@ Accessible, Localized Time Picker Input Element
 			:host {
 				display: inline-flex;
 				flex-direction: column;
+				max-width: 7rem;
+			}
+
+			.d2l-dropdown-opener {
 				width: 6rem;
 			}
 
@@ -62,7 +66,7 @@ Accessible, Localized Time Picker Input Element
 		</style>
 
 		<d2l-dropdown no-auto-open>
-			<div class="search-bar d2l-dropdown-opener" id="opener">
+			<div class="d2l-dropdown-opener" id="opener">
 				<input
 					id="{{id}}-combobox"
 					type="text"
@@ -315,7 +319,7 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			_onTimeInputFocused: function() {
-				this._dropdownWidth = this.offsetWidth + 20;
+				this._dropdownWidth = this.$$('input').offsetWidth + 20;
 				this._openTimesList();
 			},
 
