@@ -3,10 +3,10 @@ node_js: stable
 before_install:
 - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 - export PATH=$JAVA_HOME/bin:$PATH
-- npm run test:galen:sauce
 script:
 - npm run test:lint
 - polymer test --skip-plugin local
+- npm run test:galen:sauce
 addons:
   apt:
     packages:
