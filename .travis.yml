@@ -1,9 +1,16 @@
 language: node_js
 node_js: stable
+before_install:
+- export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+- export PATH=$JAVA_HOME/bin:$PATH
+- npm run test:galen:sauce
 script:
 - npm run test:lint
 - polymer test --skip-plugin local
 addons:
+  apt:
+    packages:
+    - oracle-java8-installer
   jwt:
     secure: OjSLHYV1iYRDtE3/oL0dO5DZOwfWLXpPmEc3TI4bM91jh5S9TdCHYL5yItbncQXOkGrb0DBDiDeWP9a2jaYIqYVG0MgLwfHs1uGPLFHcwNwvkNFlBqzKMLdX7PN0663zultZkPeBv694MyWNQm4Za7pamFYLzm8CkIAjyGv+o7KQXB+HcZ8UWYQY48CvfGTeiC1Kq6F1z6YqITzwNdXom99O2xDmFqA61dUrXeHaY0HEkFO8qJvdm6XhOOL2TYNROfXBg62pFecxjGrZ1XgN58H4/Ucg8hAXg7r20roRgUTJCWmd58Zz7yWKiQqoySlq9ToPq4B4ND/Yyp2bhKro7ef8nOd1GHg5ec2IimxHO8oR1PpNA2yp+mJtpg/XcD6ncO2MRs5p8GLsiy2XjBj5SM4FPV2F9a07YTk9YfapBdlhOA68gQnBAazxT5kQdI4GeAjsjgMdK7ouW6lSRgug2TaiJ3Xxa6ok2ZnfL+agBvMGXDmnc+ehKBY7275mpofHNNz9B/P2I/H4lo86GtWYxizTKhD6Nk0nZ9+DllnDix9xjuUW1m0yrsHypKvg4SpwgsmqoZQqcgEOjo8aZIwiZwutJxTVptYDss1ial7ejfUX1CWKDyn3Z8eaokwdZPhYhNTC7qhM1XGvjGUrtSDqOYjgFOf3SNTjeEHRWmCcrZw=
 env:
