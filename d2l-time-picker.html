@@ -294,10 +294,13 @@ Accessible, Localized Time Picker Input Element
 			_scrollSelectedItemIntoView: function() {
 				// Wait for dropdown menu height to be calculated
 				this.async(function() {
+					var dropdownContent = this.$$('d2l-dropdown-content');
 					var listBox = this.$$('iron-selector');
-					if (listBox.selectedItem) {
+					if (dropdownContent && listBox.selectedItem) {
 						this.selectedListboxId = this.listboxId + '-' + listBox.selected;
-						listBox.selectedItem.scrollIntoView();
+						var height = dropdownContent.height();
+						var offsetTop = listBox.selectedItem.offsetTop;
+						dropdownContent.scrollTo(offsetTop - height / 2);
 					}
 				});
 			},
