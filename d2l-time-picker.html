@@ -294,14 +294,13 @@ Accessible, Localized Time Picker Input Element
 			_scrollSelectedItemIntoView: function() {
 				// Wait for dropdown menu height to be calculated
 				this.async(function() {
-					// HACK HACK HACK FIXME FIXME FIXME
-					var listBoxContainer = this.$$('d2l-dropdown-content').__content;
+					var dropdownContent = this.$$('d2l-dropdown-content');
 					var listBox = this.$$('iron-selector');
-					if (listBoxContainer && listBox.selectedItem) {
+					if (dropdownContent && listBox.selectedItem) {
 						this.selectedListboxId = this.listboxId + '-' + listBox.selected;
-						var height = listBoxContainer.offsetHeight;
+						var height = dropdownContent.height();
 						var offsetTop = listBox.selectedItem.offsetTop;
-						listBoxContainer.scrollTop = offsetTop - height / 2;
+						dropdownContent.scrollTo(offsetTop - height / 2);
 					}
 				});
 			},
