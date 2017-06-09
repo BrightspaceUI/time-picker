@@ -1,0 +1,29 @@
+== D2L Timepicker ==
+
+	timepicker-container:
+		visible
+
+	timepicker-container.input:
+		inside timepicker-container 0px left right
+		width 120px
+
+	@on closed
+		timepicker-container.dropdown:
+			absent
+
+	@on open
+		timepicker-container.dropdown:
+			visible
+			below timepicker-container.input 10px
+			width 120 to 140 px
+
+		@on ltr
+			timepicker-container.dropdown.content.listbox.time-item-1:
+				inside timepicker-container.dropdown.content 0px top left
+
+		@on rtl
+			timepicker-container.dropdown.content.listbox.time-item-1:
+				inside timepicker-container.dropdown.content 0px top right
+
+		timepicker-container.dropdown.content.listbox.time-item-2:
+			below timepicker-container.dropdown.content.listbox.time-item-1
