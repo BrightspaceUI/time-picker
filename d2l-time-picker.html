@@ -190,8 +190,8 @@ Accessible, Localized Time Picker Input Element
 			// time display logic start
 
 			_updateFormater: function(locale, overrides) {
-				this._setFormatter(new d2lIntl.DateTimeFormat(locale, overrides));
-				this._setParser(new d2lIntl.DateTimeParse(locale, overrides));
+				this._setFormatter(new d2lIntl.DateTimeFormat(locale, { locale: overrides }));
+				this._setParser(new d2lIntl.DateTimeParse(locale, { locale: overrides }));
 				this.updateValue(this.hours, this.minutes);
 			},
 
