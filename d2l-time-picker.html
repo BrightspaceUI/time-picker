@@ -124,12 +124,12 @@ Accessible, Localized Time Picker Input Element
 				hours: {
 					type: Number,
 					notify: true,
-					value: 0
+					value: 23
 				},
 				minutes: {
 					type: Number,
 					notify: true,
-					value: 0
+					value: 59
 				},
 				value: {
 					type: String,
@@ -186,6 +186,13 @@ Accessible, Localized Time Picker Input Element
 				'down': '_onTimeInputKeyPressed',
 				'home': '_onTimeInputKeyPressed',
 				'end': '_onTimeInputKeyPressed'
+			},
+
+			clear: function() {
+				this._dontUpdateValue = true;
+				this.hours = 23;
+				this._dontUpdateValue = false;
+				this.minutes = 59;
 			},
 
 			// time display logic start
