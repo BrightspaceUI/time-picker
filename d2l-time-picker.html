@@ -189,10 +189,7 @@ Accessible, Localized Time Picker Input Element
 			},
 
 			clear: function() {
-				this._dontUpdateValue = true;
-				this.hours = 23;
-				this._dontUpdateValue = false;
-				this.minutes = 59;
+				this.updateValue(23, 59);
 			},
 
 			// time display logic start
