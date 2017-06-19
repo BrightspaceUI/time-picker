@@ -63,12 +63,13 @@
 						});
 
 						suite('hours/minutes properties', function() {
-							test('hours/minutes defaults to 0', function() {
-								expect(this.element.hours).to.equal(0);
-								expect(this.element.minutes).to.equal(0);
+							test('hours/minutes defaults to 23/59', function() {
+								expect(this.element.hours).to.equal(23);
+								expect(this.element.minutes).to.equal(59);
 							});
 
 							test('updates value property when set', function() {
+								this.element.hours = 0;
 								this.element.minutes = 1;
 
 								var date = new Date();
@@ -88,8 +89,8 @@
 						});
 
 						suite('value property', function() {
-							test('defaults to 0', function() {
-								var date = new Date(0, 0, 0, 0, 0, 0, 0);
+							test('defaults to 23/59', function() {
+								var date = new Date(0, 0, 0, 23, 59, 0, 0);
 								var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
 								var formattedTime = formatter.formatTime(date);
 								expect(this.element.value).to.equal(formattedTime);
@@ -118,6 +119,23 @@
 							test('value is maintained when value is set to invalid time', function() {
 								this.element.value = '00:0';
 								expect(this.element.value).to.equal('00:0');
+							});
+						});
+
+						suite('clear', function() {
+							test('resets the hours/minutes/value properties', function() {
+								var orig = {
+									hours: this.element.hours,
+									minutes: this.element.minutes,
+									value: this.element.value
+								};
+								this.element.hours = 0;
+								this.element.minutes = 1;
+								this.element.clear();
+
+								expect(this.element.hours).to.equal(orig.hours);
+								expect(this.element.minutes).to.equal(orig.minutes);
+								expect(this.element.value).to.equal(orig.value);
 							});
 						});
 
