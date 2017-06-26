@@ -176,7 +176,7 @@ Accessible, Localized Time Picker Input Element
 
 			listeners: {
 				'iron-select': '_scrollSelectedItemIntoView',
-				'dropdown.click': '_handleTimesListClick'
+				'dropdown.tap': '_handleTimesListClick'
 			},
 
 			keyBindings: {
@@ -334,9 +334,10 @@ Accessible, Localized Time Picker Input Element
 				this._openTimesList();
 			},
 
-			_handleTimesListClick: function() {
+			_handleTimesListClick: function(e) {
 				this.$$('input').focus();
 				this._closeTimesList(true);
+				e.preventDefault();
 			},
 
 			_onTimeInputKeyPressed: function(e) {
