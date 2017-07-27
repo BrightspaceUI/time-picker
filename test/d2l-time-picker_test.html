@@ -186,13 +186,9 @@
 									expect(times).to.deep.equal(expectations);
 									done();
 								}
+								selector.addEventListener('iron-items-changed', doTest);
 								this.element.timeInterval = 20;
 								this.focusElement();
-								if (selector.items.length) {
-									doTest();
-								} else {
-									selector.addEventListener('iron-items-changed', doTest);
-								}
 							});
 
 							test('shown when input is focused', function(done) {
