@@ -50,7 +50,7 @@ var endpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
 var TimePickerDemoPage = $page('Time Picker Demo Page', {
-	input: 'd2l-time-picker .d2l-input'
+	input: 'xpath: //d2l-time-picker//*[contains(@class,\'d2l-input\')]'
 });
 
 var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
@@ -59,13 +59,13 @@ var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
 
 polymerTests(browsers, function(test) {
 	test('d2l-time-picker', {
-		endpoint: endpoint,
+		endpoint: endpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'ltr']
 	});
 
 	test('d2l-time-picker-open', {
-		endpoint: endpoint,
+		endpoint: endpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'ltr']
 	}, function(opts, cb) {
@@ -75,13 +75,13 @@ polymerTests(browsers, function(test) {
 	});
 
 	test('d2l-time-picker-rtl', {
-		endpoint: endpoint + '?dir=rtl',
+		endpoint: endpoint + '?dir=rtl&wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'rtl']
 	});
 
 	test('d2l-time-picker-open-rtl', {
-		endpoint: endpoint + '?dir=rtl',
+		endpoint: endpoint + '?dir=rtl&wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'rtl']
 	}, function(opts, cb) {
