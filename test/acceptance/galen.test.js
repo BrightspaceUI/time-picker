@@ -127,5 +127,5 @@ polymerTests(browsers, function(test) {
 	}
 
 	runTests(mainlineEndpoint, false);
-	runTests(xEndpoint);
+	runTests(xEndpoint, true);
 });
