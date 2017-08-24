@@ -46,8 +46,8 @@ var browsers = {
 	})*/
 };
 
-var endpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
-//var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
+var mainlineEndpoint = 'http://localhost:8081/components/d2l-time-picker/demo/';
+var xEndpoint = 'http://localhost:8000/components/d2l-time-picker/demo/';
 
 var TimePickerDemoPage = $page('Time Picker Demo Page', {
 	input: 'xpath: //d2l-time-picker//*[contains(@class,\'d2l-input\')]'
@@ -58,67 +58,74 @@ var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
 });
 
 polymerTests(browsers, function(test) {
-	test('d2l-time-picker', {
-		endpoint: endpoint + '?wc-shadydom',
-		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'ltr']
-	});
+	function runTests(endpoint, runShadow) {
+		test('d2l-time-picker', {
+			endpoint: endpoint + '?wc-shadydom',
+			spec: 'test/acceptance/timepicker.gspec',
+			tags: ['closed', 'ltr']
+		});
 
-	test('d2l-time-picker-open', {
-		endpoint: endpoint + '?wc-shadydom',
-		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'ltr']
-	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerDemoPage(opts.driver);
-		timepickerdemopage.input.click();
-		cb();
-	});
+		test('d2l-time-picker-open', {
+			endpoint: endpoint + '?wc-shadydom',
+			spec: 'test/acceptance/timepicker.gspec',
+			tags: ['open', 'ltr']
+		}, function(opts, cb) {
+			var timepickerdemopage = new TimePickerDemoPage(opts.driver);
+			timepickerdemopage.input.clickAt(10, 10);
+			cb();
+		});
 
-	test('d2l-time-picker-rtl', {
-		endpoint: endpoint + '?dir=rtl&wc-shadydom',
-		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'rtl']
-	});
+		test('d2l-time-picker-rtl', {
+			endpoint: endpoint + '?dir=rtl&wc-shadydom',
+			spec: 'test/acceptance/timepicker.gspec',
+			tags: ['closed', 'rtl']
+		});
 
-	test('d2l-time-picker-open-rtl', {
-		endpoint: endpoint + '?dir=rtl&wc-shadydom',
-		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'rtl']
-	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerDemoPage(opts.driver);
-		timepickerdemopage.input.click();
-		cb();
-	});
+		test('d2l-time-picker-open-rtl', {
+			endpoint: endpoint + '?dir=rtl&wc-shadydom',
+			spec: 'test/acceptance/timepicker.gspec',
+			tags: ['open', 'rtl']
+		}, function(opts, cb) {
+			var timepickerdemopage = new TimePickerDemoPage(opts.driver);
+			timepickerdemopage.input.clickAt(10, 10);
+			cb();
+		});
 
-	test.shadow('d2l-time-picker-shadow', {
-		endpoint: endpoint + '?dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
-		tags: ['closed', 'ltr']
-	});
+		if (runShadow) {
+			test.shadow('d2l-time-picker-shadow', {
+				endpoint: endpoint + '?dom=shadow',
+				spec: 'test/acceptance/timepicker.shadow.gspec',
+				tags: ['closed', 'ltr']
+			});
 
-	test.shadow('d2l-time-picker-open-shadow', {
-		endpoint: endpoint + '?dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
-		tags: ['open', 'ltr']
-	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
-		timepickerdemopage.input.click();
-		cb();
-	});
+			test.shadow('d2l-time-picker-open-shadow', {
+				endpoint: endpoint + '?dom=shadow',
+				spec: 'test/acceptance/timepicker.shadow.gspec',
+				tags: ['open', 'ltr']
+			}, function(opts, cb) {
+				var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
+				timepickerdemopage.input.clickAt(10, 10);
+				cb();
+			});
 
-	test.shadow('d2l-time-picker-rtl-shadow', {
-		endpoint: endpoint + '?dir=rtl&dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
-		tags: ['closed', 'rtl']
-	});
+			test.shadow('d2l-time-picker-rtl-shadow', {
+				endpoint: endpoint + '?dir=rtl&dom=shadow',
+				spec: 'test/acceptance/timepicker.shadow.gspec',
+				tags: ['closed', 'rtl']
+			});
 
-	test.shadow('d2l-time-picker-open-rtl-shadow', {
-		endpoint: endpoint + '?dir=rtl&dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
-		tags: ['open', 'rtl']
-	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
-		timepickerdemopage.input.click();
-		cb();
-	});
+			test.shadow('d2l-time-picker-open-rtl-shadow', {
+				endpoint: endpoint + '?dir=rtl&dom=shadow',
+				spec: 'test/acceptance/timepicker.shadow.gspec',
+				tags: ['open', 'rtl']
+			}, function(opts, cb) {
+				var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
+				timepickerdemopage.input.clickAt(10, 10);
+				cb();
+			});
+		}
+	}
+
+	runTests(mainlineEndpoint, false);
+	runTests(xEndpoint);
 });
