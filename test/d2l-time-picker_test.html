@@ -186,13 +186,9 @@
 									expect(times).to.deep.equal(expectations);
 									done();
 								}
+								selector.addEventListener('iron-items-changed', doTest);
 								this.element.timeInterval = 20;
 								this.focusElement();
-								if (selector.items.length) {
-									doTest();
-								} else {
-									selector.addEventListener('iron-items-changed', doTest);
-								}
 							});
 
 							test('shown when input is focused', function(done) {
@@ -314,11 +310,18 @@
 
 							test('selects when item is tapped', function(done) {
 								var listbox = this.element.$$('iron-selector');
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									listbox.selectIndex(5);
 									MockInteractions.tap(listbox.items[0]);
 									expect(listbox.selected).to.equal(0);
 									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.focusElement();
 							});
@@ -326,11 +329,18 @@
 							test('selects next when down is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var listbox = this.element.$$('iron-selector');
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									expect(listbox.selected).to.equal(0);
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 40);
 									expect(listbox.selected).to.equal(1);
 									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.element.hours = 0;
 								this.element.minutes = 0;
@@ -340,11 +350,18 @@
 							test('selects previous when up is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var listbox = this.element.$$('iron-selector');
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									expect(listbox.selected).to.equal(2);
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 38);
 									expect(listbox.selected).to.equal(1);
 									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.element.hours = 1;
 								this.element.minutes = 0;
@@ -354,11 +371,18 @@
 							test('selects first item when home is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var listbox = this.element.$$('iron-selector');
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									listbox.selectIndex(5);
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 36);
 									expect(listbox.selected).to.equal(0);
 									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.focusElement();
 							});
@@ -366,28 +390,42 @@
 							test('selects last item when end is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var listbox = this.element.$$('iron-selector');
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									listbox.selectIndex(5);
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 35);
 									expect(listbox.selected).to.equal(47);
 									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.focusElement();
 							});
 
-							test('updates time when enter is pressed', function() {
+							test('updates time when enter is pressed', function(done) {
 								var inputElement = this.inputElement;
 								var listbox = this.element.$$('iron-selector');
 								var element = this.element;
-								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+								function finish() {
 									expect(element.value).to.not.equal(listbox.items[5].textContent.trim());
 									listbox.selectIndex(5);
 									MockInteractions.pressEnter(inputElement);
 									expect(!!element.$.dropdown.opened).to.be.false;
 									expect(element.value).to.equal(listbox.items[5].textContent.trim());
+									done();
+								}
+								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
+									if (listbox.items.length === 0) {
+										listbox.addEventListener('iron-items-changed', finish);
+									} else {
+										finish();
+									}
 								});
 								this.focusElement();
-								this.element.value = '';
 							});
 
 							test('resets to valid value when closed when enter is pressed', function() {
