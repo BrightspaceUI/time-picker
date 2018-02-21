@@ -92,7 +92,8 @@ Accessible, Localized Time Picker Input Element
 					no-auto-close
 					no-pointer
 					no-auto-focus
-					no-padding>
+					no-padding
+					on-tap="_handleTimesListClick">
 
 					<div class="dropdown-content">
 						<iron-selector id="{{listboxId}}" role="listbox" selected-attribute="selected">
@@ -177,8 +178,7 @@ Accessible, Localized Time Picker Input Element
 			],
 
 			listeners: {
-				'iron-select': '_scrollSelectedItemIntoView',
-				'dropdown.tap': '_handleTimesListClick'
+				'iron-select': '_scrollSelectedItemIntoView'
 			},
 
 			keyBindings: {
