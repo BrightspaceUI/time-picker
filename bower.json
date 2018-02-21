@@ -2,6 +2,18 @@
   "name": "d2l-time-picker",
   "description": "Accessible, Localized Time Picker Input Element",
   "main": "d2l-time-picker.html",
+  "license": "Apache-2.0",
+  "ignore": [
+    "demo",
+    "test",
+    ".editorconfig",
+    ".eslintrc.json",
+    ".gitignore",
+    ".travis.yml",
+    "package.json",
+    "polymer.json",
+    "wct.conf.json"
+  ],
   "dependencies": {
     "polymer": "1 - 2",
     "iron-selector": "^2.1.0",
