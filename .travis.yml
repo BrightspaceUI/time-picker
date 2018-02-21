@@ -6,7 +6,9 @@ before_install:
 script:
 - npm run test:lint
 - polymer test --skip-plugin local
-- npm run test:galen:sauce
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "true" ]; then polymer test --skip-plugin local; fi'
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "false" ]; then polymer test --skip-plugin sauce; fi'
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "true" ]; then npm run test:galen:sauce; fi'
 addons:
   apt:
     packages:
