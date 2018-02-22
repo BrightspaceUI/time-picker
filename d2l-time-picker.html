@@ -5,7 +5,7 @@
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../d2l-typography/d2l-typography-shared-styles.html">
-<link rel="import" href="../d2l-intl/d2l-intl.html">
+<link rel="import" href="../d2l-intl-import/d2l-intl.html">
 
 <!--
 `d2l-time-picker`
@@ -92,7 +92,8 @@ Accessible, Localized Time Picker Input Element
 					no-auto-close
 					no-pointer
 					no-auto-focus
-					no-padding>
+					no-padding
+					on-tap="_handleTimesListClick">
 
 					<div class="dropdown-content">
 						<iron-selector id="{{listboxId}}" role="listbox" selected-attribute="selected">
@@ -177,8 +178,7 @@ Accessible, Localized Time Picker Input Element
 			],
 
 			listeners: {
-				'iron-select': '_scrollSelectedItemIntoView',
-				'dropdown.tap': '_handleTimesListClick'
+				'iron-select': '_scrollSelectedItemIntoView'
 			},
 
 			keyBindings: {

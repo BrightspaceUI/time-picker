@@ -1,18 +1,18 @@
 language: node_js
-node_js: stable
+node_js: node
 before_install:
 - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 - export PATH=$JAVA_HOME/bin:$PATH
 script:
 - npm run test:lint
-- polymer test --skip-plugin local
-- npm run test:galen:sauce
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "true" ]; then polymer test --skip-plugin local; fi'
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "false" ]; then polymer test --skip-plugin sauce; fi'
+- 'if [ "$TRAVIS_SECURE_ENV_VARS" = "true" ]; then npm run test:galen:sauce; fi'
 addons:
   apt:
     packages:
     - oracle-java8-installer
-  jwt:
-    secure: OjSLHYV1iYRDtE3/oL0dO5DZOwfWLXpPmEc3TI4bM91jh5S9TdCHYL5yItbncQXOkGrb0DBDiDeWP9a2jaYIqYVG0MgLwfHs1uGPLFHcwNwvkNFlBqzKMLdX7PN0663zultZkPeBv694MyWNQm4Za7pamFYLzm8CkIAjyGv+o7KQXB+HcZ8UWYQY48CvfGTeiC1Kq6F1z6YqITzwNdXom99O2xDmFqA61dUrXeHaY0HEkFO8qJvdm6XhOOL2TYNROfXBg62pFecxjGrZ1XgN58H4/Ucg8hAXg7r20roRgUTJCWmd58Zz7yWKiQqoySlq9ToPq4B4ND/Yyp2bhKro7ef8nOd1GHg5ec2IimxHO8oR1PpNA2yp+mJtpg/XcD6ncO2MRs5p8GLsiy2XjBj5SM4FPV2F9a07YTk9YfapBdlhOA68gQnBAazxT5kQdI4GeAjsjgMdK7ouW6lSRgug2TaiJ3Xxa6ok2ZnfL+agBvMGXDmnc+ehKBY7275mpofHNNz9B/P2I/H4lo86GtWYxizTKhD6Nk0nZ9+DllnDix9xjuUW1m0yrsHypKvg4SpwgsmqoZQqcgEOjo8aZIwiZwutJxTVptYDss1ial7ejfUX1CWKDyn3Z8eaokwdZPhYhNTC7qhM1XGvjGUrtSDqOYjgFOf3SNTjeEHRWmCcrZw=
 env:
   global:
-    SAUCE_USERNAME: Desire2Learn
+  - SAUCE_USERNAME: Desire2Learn
+  - secure: DiJ9yri5p+Uc2CgVrT/V1f8gkrlPBYllhqekoBOoH6U+Cyt8roWp/x47PKA+68vOc3FBFrKu93uLNfyqdNW/2pKA2Quv+onItIktGRbCu/v+GDOaYC1vL4wJJdSdRXpa4MZ91R81gTymVaQXCu5CoqGy0qCjPgQOlbGa9r7pqgsyxaLXiYEnFZP555eaLUQRtk6R45kAO38sPUB6FbxI9zdozpMEooyb36r+r/hU2bhU6CN2xSfDR0beroqylhdfQOHndL/44jLBQ3f0U1SpwqJyTNPAtm2sD+h59FssfhP5IDMj6JHXpDZs0UrS+SoIDnay1zcfwDIjGtEK12JfBir/lbq0j72xbC/2hCfGe7B7+t0mSsIk8rsUP0bPekgK0Uv1EnKeL5n3vkP9ppaqVZ+iDVg91/R5R5w+2CcjYW5nF7vV/dmKiB/ojuFWgfPDSz75RBFy0QXZ9bbHWDXwsK2lb5/HpXlxYvAv1YMsS02ZtFcBoqJHvriJYRJT2KPkya76daRjg4ONO8nXCXXtyU21LiOSeAMRM2iDvwD7ddgIPQGWQrCMc34jVyC8/um24fb8yZV+Ny6SYvu1OkjuQydWUyFMPGEw54IQvprvwnyPQbw+g16VzRzSWxM2HR1HrW0wEEhPVe6a7Ad8OZ4l9b469H/qCd4gGhRc9h/cPIc=

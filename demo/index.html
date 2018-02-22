@@ -8,12 +8,16 @@
 
 		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-		<link rel="import" href="../../d2l-demo-template/d2l-demo-template.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../d2l-time-picker.html">
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>
 	</head>
 	<body unresolved>
-		<d2l-demo-template title="d2l-time-picker">
-			<div class="d2l-demo-fixture">
+		<demo-snippet>
+			<template>
 				<dom-bind>
 					<template is="dom-bind">
 						<label>Locale: <input value="{{locale::input}}"/></label>
@@ -36,7 +40,7 @@
 						<span>I am beside the time picker</span>
 					</template>
 				</dom-bind>
-			</div>
-		</d2l-demo-template>
+			</template>
+		</demo-snippet>
 	</body>
 </html>
