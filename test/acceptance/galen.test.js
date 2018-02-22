@@ -46,7 +46,7 @@ var browsers = {
 	})*/
 };
 
-var endpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
+var endpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html';
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
 var TimePickerDemoPage = $page('Time Picker Demo Page', {
