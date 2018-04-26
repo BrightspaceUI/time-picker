@@ -13,7 +13,7 @@ var browsers = {
 		browser: 'Firefox',
 		platform: 'WIN10',
 		size: '1400x900'
-	}),*/
+	}),*//*
 	ie11Windows: new SauceBrowserFactory({
 		browser: 'internet explorer',
 		version: '11',
@@ -28,8 +28,8 @@ var browsers = {
 	chromeMac: new SauceBrowserFactory({
 		browser: 'Chrome',
 		platform: 'SIERRA',
-		/* crashes during screenshot command on > 2.24
-		 *			https://bugs.chromium.org/p/chromedriver/issues/detail?id=1770# */
+		*//* crashes during screenshot command on > 2.24
+		 *			https://bugs.chromium.org/p/chromedriver/issues/detail?id=1770# *//*
 		desiredCapabilities: {
 			chromedriverVersion: '2.24'
 		}
@@ -38,7 +38,7 @@ var browsers = {
 		browser: 'Safari',
 		platform: 'EL_CAPITAN',
 		size: '1400x900'
-	})/*,
+	})*//*,
 	firefoxMac: new SauceBrowserFactory({
 		browser: 'Firefox',
 		platform: 'EL_CAPITAN',
