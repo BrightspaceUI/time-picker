@@ -25,7 +25,7 @@
   "devDependencies": {
     "chromedriver": "^2.29.0",
     "concurrently": "^3.5.1",
-    "d2l-galen-utils": "git+https://github.com/Brightspace/d2l-galen-utils.git#v0.2.4",
+    "d2l-galen-utils": "git+https://github.com/Brightspace/d2l-galen-utils.git#v0.4.0",
     "eslint": "^4.18.1",
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.2",
