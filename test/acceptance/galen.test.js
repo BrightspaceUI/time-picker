@@ -3,13 +3,14 @@
 'use strict';
 
 var browsers = {
-	chrome: new LocalBrowserFactory({ browser: 'chrome', size: '768x768' }),
+	chrome: new LocalBrowserFactory({ browser: 'chrome', size: '768x768' })
+	/*
 	chromeWindows: new SauceBrowserFactory({
 		browser: 'Chrome',
 		platform: 'WIN10',
 		size: '1400x900'
 	}),
-	/*firefoxWindows: new SauceBrowserFactory({
+	firefoxWindows: new SauceBrowserFactory({
 		browser: 'Firefox',
 		platform: 'WIN10',
 		size: '1400x900'
@@ -23,7 +24,8 @@ var browsers = {
 	edgeWindows: new SauceBrowserFactory({
 		browser: 'microsoftedge',
 		platform: 'WIN10',
-		size: '1400x900'
+		size: '1400x900',
+		tags: ['no-d2l-shadow']
 	}),
 	chromeMac: new SauceBrowserFactory({
 		browser: 'Chrome',
@@ -37,12 +39,8 @@ var browsers = {
 	safariMac: new SauceBrowserFactory({
 		browser: 'Safari',
 		platform: 'EL_CAPITAN',
-		size: '1400x900'
-	})*//*,
-	firefoxMac: new SauceBrowserFactory({
-		browser: 'Firefox',
-		platform: 'EL_CAPITAN',
-		size: '1400x900'
+		size: '1400x900',
+		tags: ['no-d2l-shadow']
 	})*/
 };
 
