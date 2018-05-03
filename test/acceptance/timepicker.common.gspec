@@ -5,7 +5,7 @@
 
 	timepicker-container.input:
 		inside timepicker-container 0px left right
-		width 120px
+		width 6rem
 
 	@on closed
 		timepicker-container.dropdown:
@@ -15,7 +15,7 @@
 		timepicker-container.dropdown:
 			visible
 			below timepicker-container.input 10px
-			width 120 to 140 px
+			width 6rem
 
 		@on ltr
 			timepicker-container.dropdown.content.listbox.time-item-1:
