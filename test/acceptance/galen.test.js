@@ -47,7 +47,7 @@ var browsers = {
 var endpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html';
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
-var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input").click()';
+var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input").dispatchEvent(new FocusEvent("focus"))';
 
 polymerTests(browsers, function(test) {
 
