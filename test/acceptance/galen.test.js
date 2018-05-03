@@ -52,13 +52,13 @@ var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input
 polymerTests(browsers, function(test) {
 
 	test('d2l-time-picker', {
-		endpoint: endpoint,
+		endpoint: endpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'ltr']
 	});
 
 	test('d2l-time-picker-open', {
-		endpoint: endpoint,
+		endpoint: endpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'ltr']
 	}, function(opts, cb) {
@@ -67,13 +67,13 @@ polymerTests(browsers, function(test) {
 	});
 
 	test('d2l-time-picker-rtl', {
-		endpoint: endpoint + '?dir=rtl',
+		endpoint: endpoint + '?wc-shadydom&dir=rtl',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'rtl']
 	});
 
 	test('d2l-time-picker-open-rtl', {
-		endpoint: endpoint + '?dir=rtl',
+		endpoint: endpoint + '?wc-shadydom&dir=rtl',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'rtl']
 	}, function(opts, cb) {
@@ -83,13 +83,13 @@ polymerTests(browsers, function(test) {
 
 	test.shadow('d2l-time-picker-shadow', {
 		endpoint: endpoint + '?dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
+		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'ltr']
 	});
 
 	test.shadow('d2l-time-picker-open-shadow', {
 		endpoint: endpoint + '?dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
+		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'ltr']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
@@ -98,13 +98,13 @@ polymerTests(browsers, function(test) {
 
 	test.shadow('d2l-time-picker-rtl-shadow', {
 		endpoint: endpoint + '?dir=rtl&dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
+		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['closed', 'rtl']
 	});
 
 	test.shadow('d2l-time-picker-open-rtl-shadow', {
 		endpoint: endpoint + '?dir=rtl&dom=shadow',
-		spec: 'test/acceptance/timepicker.shadow.gspec',
+		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'rtl']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
