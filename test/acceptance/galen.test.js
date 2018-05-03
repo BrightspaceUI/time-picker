@@ -47,13 +47,7 @@ var browsers = {
 var endpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html';
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
-var TimePickerDemoPage = $page('Time Picker Demo Page', {
-	input: 'd2l-time-picker .d2l-input'
-});
-
-var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
-	input: 'd2l-time-picker ::d2l-shadow .d2l-input'
-});
+var inputClickScript = 'document.querySelector("d2l-time-picker").$$.(".d2l-input").click()';
 
 polymerTests(browsers, function(test) {
 	/*
@@ -68,8 +62,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'ltr']
 	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerDemoPage(opts.driver);
-		timepickerdemopage.input.click();
+		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 
@@ -84,8 +77,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['open', 'rtl']
 	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerDemoPage(opts.driver);
-		timepickerdemopage.input.click();
+		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 	*/
@@ -101,8 +93,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.shadow.gspec',
 		tags: ['open', 'ltr']
 	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
-		timepickerdemopage.input.click();
+		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 
@@ -117,8 +108,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.shadow.gspec',
 		tags: ['open', 'rtl']
 	}, function(opts, cb) {
-		var timepickerdemopage = new TimePickerShadowDemoPage(opts.driver);
-		timepickerdemopage.input.click();
+		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 });
