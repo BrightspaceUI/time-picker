@@ -50,7 +50,7 @@ var endpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html
 var inputClickScript = 'document.querySelector("d2l-time-picker").$$.(".d2l-input").click()';
 
 polymerTests(browsers, function(test) {
-	/*
+
 	test('d2l-time-picker', {
 		endpoint: endpoint,
 		spec: 'test/acceptance/timepicker.gspec',
@@ -80,7 +80,6 @@ polymerTests(browsers, function(test) {
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
-	*/
 
 	test.shadow('d2l-time-picker-shadow', {
 		endpoint: endpoint + '?dom=shadow',
