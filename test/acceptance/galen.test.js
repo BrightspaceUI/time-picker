@@ -52,7 +52,7 @@ var TimePickerDemoPage = $page('Time Picker Demo Page', {
 });
 
 var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
-	input: 'body /deep/ d2l-time-picker /deep/ .d2l-input'
+	input: 'body ::d2l-shadow d2l-time-picker ::d2l-shadow .d2l-input'
 });
 
 polymerTests(browsers, function(test) {
