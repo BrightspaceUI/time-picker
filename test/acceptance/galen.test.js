@@ -44,7 +44,9 @@ var browsers = {
 	})*/
 };
 
-var endpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html';
+var mainlineEndpoint = 'http://localhost:8081/components/d2l-time-picker/demo/index.html';
+var oneDotXEndpoint = 'http://localhost:8000/components/d2l-time-picker/demo/index.html';
+
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
 var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input").dispatchEvent(new FocusEvent("focus"))';
@@ -52,60 +54,120 @@ var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input
 polymerTests(browsers, function(test) {
 
 	test('d2l-time-picker', {
-		endpoint: endpoint + '?wc-shadydom',
+		endpoint: mainlineEndpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'ltr']
+		tags: ['mainline', 'closed', 'ltr']
 	});
 
 	test('d2l-time-picker-open', {
-		endpoint: endpoint + '?wc-shadydom',
+		endpoint: mainlineEndpoint + '?wc-shadydom',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'ltr']
+		tags: ['mainline', 'open', 'ltr']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 
 	test('d2l-time-picker-rtl', {
-		endpoint: endpoint + '?wc-shadydom&dir=rtl',
+		endpoint: mainlineEndpoint + '?wc-shadydom&dir=rtl',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'rtl']
+		tags: ['mainline', 'closed', 'rtl']
 	});
 
 	test('d2l-time-picker-open-rtl', {
-		endpoint: endpoint + '?wc-shadydom&dir=rtl',
+		endpoint: mainlineEndpoint + '?wc-shadydom&dir=rtl',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'rtl']
+		tags: ['mainline', 'open', 'rtl']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 
 	test.shadow('d2l-time-picker-shadow', {
-		endpoint: endpoint + '?dom=shadow',
+		endpoint: mainlineEndpoint + '?dom=shadow',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'ltr']
+		tags: ['mainline', 'closed', 'ltr']
 	});
 
 	test.shadow('d2l-time-picker-open-shadow', {
-		endpoint: endpoint + '?dom=shadow',
+		endpoint: mainlineEndpoint + '?dom=shadow',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'ltr']
+		tags: ['mainline', 'open', 'ltr']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
 
 	test.shadow('d2l-time-picker-rtl-shadow', {
-		endpoint: endpoint + '?dir=rtl&dom=shadow',
+		endpoint: mainlineEndpoint + '?dir=rtl&dom=shadow',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['closed', 'rtl']
+		tags: ['mainline', 'closed', 'rtl']
 	});
 
 	test.shadow('d2l-time-picker-open-rtl-shadow', {
-		endpoint: endpoint + '?dir=rtl&dom=shadow',
+		endpoint: mainlineEndpoint + '?dir=rtl&dom=shadow',
 		spec: 'test/acceptance/timepicker.gspec',
-		tags: ['open', 'rtl']
+		tags: ['mainline', 'open', 'rtl']
+	}, function(opts, cb) {
+		opts.driver.executeScript(inputClickScript);
+		cb();
+	});
+
+	test('d2l-time-picker', {
+		endpoint: mainlineEndpoint + '?wc-shadydom',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['mainline', 'closed', 'ltr']
+	});
+
+	test('d2l-time-picker-open', {
+		endpoint: oneDotXEndpoint + '?wc-shadydom',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'open', 'ltr']
+	}, function(opts, cb) {
+		opts.driver.executeScript(inputClickScript);
+		cb();
+	});
+
+	test('d2l-time-picker-rtl', {
+		endpoint: oneDotXEndpoint + '?wc-shadydom&dir=rtl',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'closed', 'rtl']
+	});
+
+	test('d2l-time-picker-open-rtl', {
+		endpoint: oneDotXEndpoint + '?wc-shadydom&dir=rtl',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'open', 'rtl']
+	}, function(opts, cb) {
+		opts.driver.executeScript(inputClickScript);
+		cb();
+	});
+
+	test.shadow('d2l-time-picker-shadow', {
+		endpoint: oneDotXEndpoint + '?dom=shadow',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'closed', 'ltr']
+	});
+
+	test.shadow('d2l-time-picker-open-shadow', {
+		endpoint: oneDotXEndpoint + '?dom=shadow',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'open', 'ltr']
+	}, function(opts, cb) {
+		opts.driver.executeScript(inputClickScript);
+		cb();
+	});
+
+	test.shadow('d2l-time-picker-rtl-shadow', {
+		endpoint: oneDotXEndpoint + '?dir=rtl&dom=shadow',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'closed', 'rtl']
+	});
+
+	test.shadow('d2l-time-picker-open-rtl-shadow', {
+		endpoint: oneDotXEndpoint + '?dir=rtl&dom=shadow',
+		spec: 'test/acceptance/timepicker.gspec',
+		tags: ['1.x', 'open', 'rtl']
 	}, function(opts, cb) {
 		opts.driver.executeScript(inputClickScript);
 		cb();
