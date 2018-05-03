@@ -56,6 +56,7 @@ var TimePickerShadowDemoPage = $page('Time Picker Demo Page', {
 });
 
 polymerTests(browsers, function(test) {
+	/*
 	test('d2l-time-picker', {
 		endpoint: endpoint,
 		spec: 'test/acceptance/timepicker.gspec',
@@ -87,6 +88,7 @@ polymerTests(browsers, function(test) {
 		timepickerdemopage.input.click();
 		cb();
 	});
+	*/
 
 	test.shadow('d2l-time-picker-shadow', {
 		endpoint: endpoint + '?dom=shadow',
