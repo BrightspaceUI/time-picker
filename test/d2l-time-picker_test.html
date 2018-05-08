@@ -30,14 +30,24 @@
 					this.fixture = fixture('basic');
 					this.element = this.fixture.querySelector('d2l-time-picker');
 					this.focusable = this.fixture.querySelector('#focusable');
+					this.isDone = false;
 					var element = this.element;
 					var focusable = this.focusable;
 					this.focusElement = function() {
-						MockInteractions.focus(element.$$('input'));
+						setTimeout(function() {
+							MockInteractions.focus(element.$$('input'));
+						}, 10);
 					};
 					this.focusFocusable = function() {
 						MockInteractions.focus(focusable);
 					};
+					this.callDone = function(done) {
+						if (this.isDone) {
+							return;
+						}
+						this.isDone = true;
+						done();
+					}.bind(this);
 					this.inputElement = this.element.$$('input');
 				});
 
@@ -82,8 +92,8 @@
 
 							test('fires a single d2l-time-picker-time-changed event', function(done) {
 								this.element.addEventListener('d2l-time-picker-time-changed', function() {
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.element.minutes = 1;
 							});
 						});
@@ -108,8 +118,8 @@
 
 							test('fires a single d2l-time-picker-time-changed event', function(done) {
 								this.element.addEventListener('d2l-time-picker-time-changed', function() {
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								var date = new Date(Date.now() + 60000);
 								var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
 								var formattedTime = formatter.formatTime(date);
@@ -160,11 +170,13 @@
 									done();
 								}
 								this.focusElement();
-								if (selector.items.length) {
-									doTest();
-								} else {
-									selector.addEventListener('iron-items-changed', doTest);
-								}
+								setTimeout(function() {
+									if (selector.items.length) {
+										doTest();
+									} else {
+										selector.addEventListener('iron-items-changed', doTest);
+									}
+								}, 20);
 							});
 
 							test('has all times separated by timeInterval (20) in a 24 hour period', function(done) {
@@ -189,18 +201,20 @@
 								this.element.timeInterval = 20;
 								Polymer.RenderStatus.afterNextRender(this.element.$$('iron-selector'), () => {
 									this.focusElement();
-									if (selector.items.length) {
-										doTest();
-									} else {
-										selector.addEventListener('iron-items-changed', doTest);
-									}
+									setTimeout(function() {
+										if (selector.items.length) {
+											doTest();
+										} else {
+											selector.addEventListener('iron-items-changed', doTest);
+										}
+									}.bind(this), 20);
 								});
 							});
 
 							test('shown when input is focused', function(done) {
 								this.element.$.dropdown.addEventListener('d2l-dropdown-open', function() {
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.focusElement();
 							});
 
@@ -210,8 +224,8 @@
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 								});
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.focusElement();
 							});
 
@@ -221,8 +235,8 @@
 									element.value = 'foobars';
 								});
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.focusElement();
 							});
 
@@ -233,9 +247,9 @@
 									if (calls++ === 0) {
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 									} else {
-										done();
+										this.callDone(done);
 									}
-								});
+								}.bind(this));
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 40);
 								});
@@ -250,9 +264,9 @@
 									if (calls++ === 0) {
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 									} else {
-										done();
+										this.callDone(done);
 									}
-								});
+								}.bind(this));
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									var oldValue = element.value;
 									element.value = 'foozleberries';
@@ -270,9 +284,9 @@
 									if (calls++ === 0) {
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 									} else {
-										done();
+										this.callDone(done);
 									}
-								});
+								}.bind(this));
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 38);
 								});
@@ -287,9 +301,9 @@
 									if (calls++ === 0) {
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 27);
 									} else {
-										done();
+										this.callDone(done);
 									}
-								});
+								}.bind(this));
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									var oldValue = element.value;
 									element.value = 'foozleberries';
@@ -309,8 +323,8 @@
 								this.element.$.dropdown.addEventListener('d2l-dropdown-close', function() {
 									MockInteractions.pressEnter(inputElement);
 									expect(element.$.dropdown.opened).to.equal(false);
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.focusElement();
 							});
 
@@ -323,9 +337,9 @@
 										listbox.selectIndex(5);
 										MockInteractions.tap(listbox.items[0]);
 										expect(listbox.selected).to.equal(0);
-										done();
+										self.callDone(done);
 									});
-									self.focusElement();
+									setTimeout(self.focusElement, 10);
 								});
 							});
 
@@ -339,7 +353,7 @@
 										expect(listbox.selected).to.equal(0);
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 40);
 										expect(listbox.selected).to.equal(1);
-										done();
+										self.callDone(done);
 									});
 									self.element.hours = 0;
 									self.element.minutes = 0;
@@ -357,7 +371,7 @@
 										expect(listbox.selected).to.equal(2);
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 38);
 										expect(listbox.selected).to.equal(1);
-										done();
+										self.callDone(done);
 									});
 									self.element.hours = 1;
 									self.element.minutes = 0;
@@ -372,8 +386,8 @@
 									listbox.selectIndex(5);
 									MockInteractions.pressAndReleaseKeyOn(inputElement, 36);
 									expect(listbox.selected).to.equal(0);
-									done();
-								});
+									this.callDone(done);
+								}.bind(this));
 								this.focusElement();
 							});
 
@@ -387,7 +401,7 @@
 										listbox.selectIndex(5);
 										MockInteractions.pressAndReleaseKeyOn(inputElement, 35);
 										expect(listbox.selected).to.equal(47);
-										done();
+										self.callDone(done);
 									});
 									self.focusElement();
 								});
@@ -406,7 +420,7 @@
 										MockInteractions.pressEnter(inputElement);
 										expect(!!element.$.dropdown.opened).to.be.false;
 										expect(element.value).to.equal(listbox.items[5].textContent.trim());
-										done();
+										self.callDone(done);
 									});
 									self.focusElement();
 									self.element.value = '';
@@ -439,7 +453,7 @@
 										setTimeout(function() {
 											expect(!!self.element.$.dropdown.opened).to.be.false;
 											expect(self.element.value).to.not.equal(listbox.items[5].textContent.trim());
-											done();
+											self.callDone(done);
 										});
 									});
 
