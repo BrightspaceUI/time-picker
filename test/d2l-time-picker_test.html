@@ -187,12 +187,14 @@
 									done();
 								}
 								this.element.timeInterval = 20;
-								this.focusElement();
-								if (selector.items.length) {
-									doTest();
-								} else {
-									selector.addEventListener('iron-items-changed', doTest);
-								}
+								Polymer.RenderStatus.afterNextRender(this.element.$$('iron-selector'), () => {
+									this.focusElement();
+									if (selector.items.length) {
+										doTest();
+									} else {
+										selector.addEventListener('iron-items-changed', doTest);
+									}
+								});
 							});
 
 							test('shown when input is focused', function(done) {
