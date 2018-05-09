@@ -1,10 +1,19 @@
 @objects
 
 	timepicker-container        d2l-time-picker
-		input                   .d2l-input
-		dropdown                d2l-dropdown-content
+		input                   ::d2l-shadow .d2l-input
+		dropdown                ::d2l-shadow d2l-dropdown-content
 			content             .dropdown-content
 				listbox         iron-selector
 					time-item-* .d2l-times-item
+
+@on no-d2l-shadow
+	@objects
+		timepicker-container        d2l-time-picker
+			input                   .d2l-input
+			dropdown                d2l-dropdown-content
+				content             .dropdown-content
+					listbox         iron-selector
+						time-item-* .d2l-times-item
 
 @import timepicker.common.gspec
