@@ -50,6 +50,7 @@ var oneDotXEndpoint = 'http://localhost:8000/components/d2l-time-picker/demo/ind
 //var demoEndpoint = 'http://localhost:8080/components/d2l-time-picker/demo/index.html';
 
 var inputClickScript = 'document.querySelector("d2l-time-picker").$$(".d2l-input").dispatchEvent(new FocusEvent("focus"))';
+var rtlScript = 'document.body.setAttribute("dir", "rtl");';
 
 polymerTests(browsers, function(test) {
 
@@ -79,7 +80,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['mainline', 'open', 'rtl']
 	}, function(opts, cb) {
-		document.body.setAttribute('dir', 'rtl');
+		opts.driver.executeScript(rtlScript);
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
@@ -104,7 +105,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['mainline', 'closed', 'rtl']
 	}, function() {
-		document.body.setAttribute('dir', 'rtl');
+
 	});
 
 	test.shadow('d2l-time-picker-open-rtl-shadow', {
@@ -112,7 +113,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['mainline', 'open', 'rtl']
 	}, function(opts, cb) {
-		document.body.setAttribute('dir', 'rtl');
+		opts.driver.executeScript(rtlScript);
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
@@ -136,8 +137,8 @@ polymerTests(browsers, function(test) {
 		endpoint: oneDotXEndpoint + '?wc-shadydom&dir=rtl',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['1.x', 'closed', 'rtl']
-	}, function() {
-		document.body.setAttribute('dir', 'rtl');
+	}, function(opts) {
+		opts.driver.executeScript(rtlScript);
 	});
 
 	test('d2l-time-picker-open-rtl', {
@@ -145,7 +146,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['1.x', 'open', 'rtl']
 	}, function(opts, cb) {
-		document.body.setAttribute('dir', 'rtl');
+		opts.driver.executeScript(rtlScript);
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
@@ -169,8 +170,8 @@ polymerTests(browsers, function(test) {
 		endpoint: oneDotXEndpoint + '?dir=rtl&dom=shadow',
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['1.x', 'closed', 'rtl']
-	}, function() {
-		document.body.setAttribute('dir', 'rtl');
+	}, function(opts) {
+		opts.driver.executeScript(rtlScript);
 	});
 
 	test.shadow('d2l-time-picker-open-rtl-shadow', {
@@ -178,7 +179,7 @@ polymerTests(browsers, function(test) {
 		spec: 'test/acceptance/timepicker.gspec',
 		tags: ['1.x', 'open', 'rtl']
 	}, function(opts, cb) {
-		document.body.setAttribute('dir', 'rtl');
+		opts.driver.executeScript(rtlScript);
 		opts.driver.executeScript(inputClickScript);
 		cb();
 	});
