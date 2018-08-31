@@ -1,3 +1,5 @@
+> Deprecated: use [BrightspaceUI/inputs](https://github.com/BrightspaceUI/inputs) `d2l-input-time` web component instead.
+
 # \<d2l-time-picker\>
 
 [![Build Status](https://travis-ci.org/BrightspaceUI/time-picker.svg?branch=master)](https://travis-ci.org/BrightspaceUI/time-picker)
