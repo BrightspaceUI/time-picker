@@ -17,7 +17,7 @@ import 'd2l-dropdown/d2l-dropdown-content.js';
 import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
 import '@polymer/iron-selector/iron-selector.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
-import 'd2l-intl-import/d2l-intl.js';
+import d2lIntl from 'd2l-intl';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 const $_documentContainer = document.createElement('template');
@@ -298,7 +298,7 @@ Polymer({
 				var offsetTop = listBox.selectedItem.offsetTop;
 				dropdownContent.scrollTo(offsetTop - height / 2);
 			}
-		});
+		}.bind(this));
 	},
 
 	_onBlur: function() {
@@ -317,7 +317,7 @@ Polymer({
 			if (dom(this.root).activeElement !== this.$$('input')) {
 				this._onBlur();
 			}
-		}, 1);
+		}.bind(this), 1);
 	},
 
 	_onTimeInputFocused: function() {

@@ -6,11 +6,10 @@
 
 		<title>d2l-time-picker test</title>
 
-		<script src="../../@babel/polyfill/browser.js"></script>
+		<!-- <script src="../../@babel/polyfill/browser.js"></script> -->
 		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 		<script src="../../wct-browser-legacy/browser.js"></script>
 
-		<script type="module" src="../../d2l-intl-import/d2l-intl.js"></script>
 		<script type="module" src="../../@polymer/iron-test-helpers/mock-interactions.js"></script>
 		<script type="module" src="../d2l-time-picker.js"></script>
 	</head>
@@ -25,11 +24,12 @@
 		</test-fixture>
 
 		<script type="module">
-import 'd2l-intl-import/d2l-intl.js';
+import d2lIntl from 'd2l-intl';
 import '@polymer/iron-test-helpers/mock-interactions.js';
 import '../d2l-time-picker.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-/* global d2lIntl, MockInteractions */
+/* eslint no-invalid-this: 0 */
+/* global MockInteractions */
 suite('d2l-time-picker', function() {
 	setup(function() {
 		this.fixture = fixture('basic');

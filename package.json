@@ -39,7 +39,9 @@
     "polymer-cli": "^1.9.2",
     "sauce-connect-launcher": "^1.2.2",
     "sauceconnect-runner": "git+https://github.com/Brightspace/sauceconnect-runner.git#v0.3.0",
-    "wct-browser-legacy": "^1.0.1"
+    "wct-browser-legacy": "^1.0.1",
+    "async": "^1.5.2",
+    "lodash": "^3.10.1"
   },
   "version": "",
   "resolutions": {
