@@ -1,4 +1,4 @@
-> Deprecated: A new time input (that does not rely on third-party components) should be created and added to [BrightspaceUI/inputs](https://github.com/BrightspaceUI/inputs) instead.
+> Deprecated: A new time input (that does not rely on third-party components) should be created and added to [BrightspaceUI/inputs](https://github.com/BrightspaceUI/inputs) instead!
 
 # \<d2l-time-picker\>
 
