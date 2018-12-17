@@ -309,7 +309,7 @@ Accessible, Localized Time Picker Input Element
 						var offsetTop = listBox.selectedItem.offsetTop;
 						dropdownContent.scrollTo(offsetTop - height / 2);
 					}
-				});
+				}.bind(this));
 			},
 
 			_onBlur: function() {
@@ -328,7 +328,7 @@ Accessible, Localized Time Picker Input Element
 					if (Polymer.dom(this.root).activeElement !== this.$$('input')) {
 						this._onBlur();
 					}
-				}, 1);
+				}.bind(this), 1);
 			},
 
 			_onTimeInputFocused: function() {
