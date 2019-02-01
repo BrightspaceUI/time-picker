@@ -4,25 +4,19 @@ Accessible, Localized Time Picker Input Element
 
 @demo demo/index.html
 */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 import '@polymer/polymer/polymer-legacy.js';
-
-import './d2l-input-styles.js';
 import 'd2l-dropdown/d2l-dropdown.js';
 import 'd2l-dropdown/d2l-dropdown-content.js';
 import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
 import '@polymer/iron-selector/iron-selector.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
+import 'd2l-inputs/d2l-input-shared-styles.js';
 import d2lIntl from 'd2l-intl';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="d2l-time-picker">
+$_documentContainer.innerHTML = /*html*/`<dom-module id="d2l-time-picker">
 	<template strip-whitespace="">
 		<style include="d2l-input-styles">
 			:host {
@@ -78,10 +72,30 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-time-picker">
 
 		<d2l-dropdown no-auto-open="">
 			<div class="d2l-dropdown-opener" id="opener">
-				<input id="{{id}}-combobox" type="text" class="d2l-input" role="combobox" aria-autocomplete="list" aria-label$="{{label}}" aria-owns$="{{listboxId}}" aria-activedescendant$="{{selectedListboxId}}" on-focus="_onTimeInputFocused" value="{{value::input}}">
+				<input
+					id="{{id}}-combobox"
+					type="text"
+					class="d2l-input"
+					role="combobox"
+					aria-autocomplete="list"
+					aria-label$="{{label}}"
+					aria-owns$="{{listboxId}}"
+					aria-activedescendant$="{{selectedListboxId}}"
+					on-focus="_onTimeInputFocused"
+					value="{{value::input}}">
 			</div>
 
-			<d2l-dropdown-content id="dropdown" min-width="[[_dropdownWidth]]" max-width="[[_dropdownWidth]]" boundary="[[boundary]]" align="start" no-auto-close="" no-pointer="" no-auto-focus="" no-padding="" on-tap="_handleTimesListClick">
+			<d2l-dropdown-content
+				id="dropdown"
+				min-width="[[_dropdownWidth]]"
+				max-width="[[_dropdownWidth]]"
+				boundary="[[boundary]]"
+				align="start"
+				no-auto-close=""
+				no-pointer=""
+				no-auto-focus=""
+				no-padding=""
+				on-tap="_handleTimesListClick">
 
 					<div class="dropdown-content">
 						<iron-selector id="{{listboxId}}" role="listbox" selected-attribute="selected">
@@ -95,7 +109,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-time-picker">
 		<span class="timezone">{{timezone}}</span>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
