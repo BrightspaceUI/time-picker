@@ -57,6 +57,7 @@
     "@polymer/iron-a11y-keys-behavior": "^3.0.0-pre.18",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-dropdown": "BrightspaceUI/dropdown#semver:^7",
+    "d2l-inputs": "BrightspaceUI/inputs#semver:^2",
     "d2l-typography": "BrightspaceUI/typography#semver:^7"
   }
 }
