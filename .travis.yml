@@ -3,11 +3,6 @@ node_js: node
 before_install:
 - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 - export PATH=$JAVA_HOME/bin:$PATH
-addons:
-  apt:
-    packages:
-    - oracle-java8-installer
-  chrome: stable
 script:
 - npm run lint
 - |
@@ -19,20 +14,12 @@ script:
     echo "Not a pull request and/or no secure environment variables, running headless tests...";
     npm run test:polymer:local || travis_terminate 1;
   fi
-- |
-  if [ "$TRAVIS_BRANCH" == "master" ] && [ $TRAVIS_PULL_REQUEST == false ]; then
-    echo "Not a Pull Request and on branch master so bumping version";
-    frauci-update-version;
-    export TRAVIS_TAG=$(frauci-get-version)
-  fi
-deploy:
-  provider: releases
-  api_key: "$GITHUB_RELEASE_TOKEN"
-  on:
-    tags: true
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
+  chrome: stable
 env:
   global:
-  - REPO_NAME=time-picker
   - SAUCE_USERNAME: Desire2Learn
   - secure: DiJ9yri5p+Uc2CgVrT/V1f8gkrlPBYllhqekoBOoH6U+Cyt8roWp/x47PKA+68vOc3FBFrKu93uLNfyqdNW/2pKA2Quv+onItIktGRbCu/v+GDOaYC1vL4wJJdSdRXpa4MZ91R81gTymVaQXCu5CoqGy0qCjPgQOlbGa9r7pqgsyxaLXiYEnFZP555eaLUQRtk6R45kAO38sPUB6FbxI9zdozpMEooyb36r+r/hU2bhU6CN2xSfDR0beroqylhdfQOHndL/44jLBQ3f0U1SpwqJyTNPAtm2sD+h59FssfhP5IDMj6JHXpDZs0UrS+SoIDnay1zcfwDIjGtEK12JfBir/lbq0j72xbC/2hCfGe7B7+t0mSsIk8rsUP0bPekgK0Uv1EnKeL5n3vkP9ppaqVZ+iDVg91/R5R5w+2CcjYW5nF7vV/dmKiB/ojuFWgfPDSz75RBFy0QXZ9bbHWDXwsK2lb5/HpXlxYvAv1YMsS02ZtFcBoqJHvriJYRJT2KPkya76daRjg4ONO8nXCXXtyU21LiOSeAMRM2iDvwD7ddgIPQGWQrCMc34jVyC8/um24fb8yZV+Ny6SYvu1OkjuQydWUyFMPGEw54IQvprvwnyPQbw+g16VzRzSWxM2HR1HrW0wEEhPVe6a7Ad8OZ4l9b469H/qCd4gGhRc9h/cPIc=
-  - secure: L6tinvn+4wGXpnsJgi6k7wSfZ/Wmajo7sLWDNUaCiHjgDSPIfK/72+SRkypoLmbLAXxb38iI3gBnV3ddtsdvwZ5RSN9W1asZNFYMwQShjDmSENCgQTwMr2I/34UqRfKyOJ1GeLTqanIVivChht54N5Z8Sw6K5+otw3ZnPYvAg/9hHVe7+XBfRg8piRq/BUWnyljgGKtvh9r1q2ikyxmiKinYmXGI6NmMBsh4G+Rdlay5X08WnFuspG3+VAoC+O2lKSvGkaU8bALtosRXCxxOY3qv/Mngj+0jtFgxdF38ONFOlUj80dn6lZqB/5MiXFxIuiTj6/ee6cTlkdEkSA+itYr6oLhD4YijJ2L2oNLLeEEvbwUXcD0E8qzEjr4ufSntyNsCV9VkCgLYJxWKmzIRK9XlbeSfjVk+VcFNOyR3pvws6yZ+/ubuGnwEqhKoNJ4qyAkOr5WkHABdza39twa5ihLsd3SJULNiD2sKOTUcNLToshZoAnLSMbP5TIsS/BZ7JrivYvn54y6lxdUGWlS5apGjWWXsiVNv3NDUY9G+XGIWY3GJFjU3mVu+2x2+mqLhFnwOH4jt3zWmh7Z5lGFip2OkbXvxTxi/FmCumomi8NEeFSoIfLKiMPAdXJlo+NNbKLsWUfuT1er4ZPDp/FN1CZ909XTRgt6+gnhqCFFkCA8=
