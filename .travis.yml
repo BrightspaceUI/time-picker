@@ -32,6 +32,7 @@ deploy:
     tags: true
 env:
   global:
+  - OWNER_NAME=BrightspaceUI
   - REPO_NAME=time-picker
   - SAUCE_USERNAME: Desire2Learn
   - secure: DiJ9yri5p+Uc2CgVrT/V1f8gkrlPBYllhqekoBOoH6U+Cyt8roWp/x47PKA+68vOc3FBFrKu93uLNfyqdNW/2pKA2Quv+onItIktGRbCu/v+GDOaYC1vL4wJJdSdRXpa4MZ91R81gTymVaQXCu5CoqGy0qCjPgQOlbGa9r7pqgsyxaLXiYEnFZP555eaLUQRtk6R45kAO38sPUB6FbxI9zdozpMEooyb36r+r/hU2bhU6CN2xSfDR0beroqylhdfQOHndL/44jLBQ3f0U1SpwqJyTNPAtm2sD+h59FssfhP5IDMj6JHXpDZs0UrS+SoIDnay1zcfwDIjGtEK12JfBir/lbq0j72xbC/2hCfGe7B7+t0mSsIk8rsUP0bPekgK0Uv1EnKeL5n3vkP9ppaqVZ+iDVg91/R5R5w+2CcjYW5nF7vV/dmKiB/ojuFWgfPDSz75RBFy0QXZ9bbHWDXwsK2lb5/HpXlxYvAv1YMsS02ZtFcBoqJHvriJYRJT2KPkya76daRjg4ONO8nXCXXtyU21LiOSeAMRM2iDvwD7ddgIPQGWQrCMc34jVyC8/um24fb8yZV+Ny6SYvu1OkjuQydWUyFMPGEw54IQvprvwnyPQbw+g16VzRzSWxM2HR1HrW0wEEhPVe6a7Ad8OZ4l9b469H/qCd4gGhRc9h/cPIc=
