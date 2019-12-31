@@ -24,9 +24,9 @@
 		</test-fixture>
 
 		<script type="module">
-import d2lIntl from 'd2l-intl';
 import '@polymer/iron-test-helpers/mock-interactions.js';
 import '../d2l-time-picker.js';
+import {getDocumentLocaleSettings} from '@brightspace-ui/intl/lib/common.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 /* eslint no-invalid-this: 0 */
 /* global MockInteractions */
@@ -67,14 +67,15 @@ suite('d2l-time-picker', function() {
 	});
 
 	[{
-		locale: 'en'
+		locale: 'en',
+		expect: ['12:01 AM', '11:59 PM', '3:44 PM', '12:30 AM', '12:20 AM']
 	}, {
-		locale: 'fr-CA'
+		locale: 'fr-CA',
+		expect: ['00 h 01', '23 h 59', '15 h 44', '00 h 30', '00 h 20']
 	}].forEach(function(testCase) {
 		suite(testCase.locale, function() {
 			setup(function() {
-				this.element.locale = testCase.locale;
-				this.element.overrides = testCase.overrides;
+				getDocumentLocaleSettings().language = testCase.locale;
 			});
 
 			suite('hours/minutes properties', function() {
@@ -90,9 +91,7 @@ suite('d2l-time-picker', function() {
 					var date = new Date();
 					date.setHours(0);
 					date.setMinutes(1);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					var formattedTime = formatter.formatTime(date);
-					expect(this.element.value).to.equal(formattedTime);
+					expect(this.element.value).to.equal(testCase.expect[0]);
 				});
 
 				test('fires a single d2l-time-picker-time-changed event', function(done) {
@@ -105,17 +104,12 @@ suite('d2l-time-picker', function() {
 
 			suite('value property', function() {
 				test('defaults to 23/59', function() {
-					var date = new Date(0, 0, 0, 23, 59, 0, 0);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					var formattedTime = formatter.formatTime(date);
-					expect(this.element.value).to.equal(formattedTime);
+					expect(this.element.value).to.equal(testCase.expect[1]);
 				});
 
 				test('updates time property when set', function() {
-					var date = new Date(Date.now() + 60000);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					var formattedTime = formatter.formatTime(date);
-					this.element.value = formattedTime;
+					var date = new Date(2019, 11, 31, 15, 44);
+					this.element.value = testCase.expect[2];
 
 					expect(this.element.hours).to.equal(date.getHours());
 					expect(this.element.minutes).to.equal(date.getMinutes());
@@ -125,10 +119,7 @@ suite('d2l-time-picker', function() {
 					this.element.addEventListener('d2l-time-picker-time-changed', function() {
 						this.callDone(done);
 					}.bind(this));
-					var date = new Date(Date.now() + 60000);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					var formattedTime = formatter.formatTime(date);
-					this.element.value = formattedTime;
+					this.element.value = testCase.expect[2];
 				});
 
 				test('value is maintained when value is set to invalid time', function() {
@@ -157,21 +148,13 @@ suite('d2l-time-picker', function() {
 			suite('listbox items', function() {
 				test('has all times separated by gap (30) in a 24 hour period', function(done) {
 					var selector = this.element.$$('iron-selector');
-					var date = new Date(0, 0, 0, 0, 0, 0, 0);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					var expectations = new Array(48);
-					for (var i = 0; i < 48; i++) {
-						date.setHours(Math.floor(i / 2));
-						date.setMinutes((i % 2) * 30);
-						expectations[i] = formatter.formatTime(date);
-					}
 
 					function doTest() {
 						var items = selector.items;
 						var times = items.map(function(item) {
 							return item.textContent.trim();
 						});
-						expect(times).to.deep.equal(expectations);
+						expect(times[1]).to.equal(testCase.expect[3]);
 						done();
 					}
 					this.focusElement();
@@ -186,21 +169,13 @@ suite('d2l-time-picker', function() {
 
 				test('has all times separated by timeInterval (20) in a 24 hour period', function(done) {
 					var selector = this.element.$$('iron-selector');
-					var expectations = new Array(72);
-					var date = new Date(0, 0, 0, 0, 0, 0, 0);
-					var formatter = new d2lIntl.DateTimeFormat(testCase.locale, testCase.overrides);
-					for (var i = 0; i < 72; i++) {
-						date.setHours(Math.floor(i / 3));
-						date.setMinutes((i % 3) * 20);
-						expectations[i] = formatter.formatTime(date);
-					}
 
 					function doTest() {
 						var items = selector.items;
 						var times = items.map(function(item) {
 							return item.textContent.trim();
 						});
-						expect(times).to.deep.equal(expectations);
+						expect(times[1]).to.equal(testCase.expect[4]);
 						done();
 					}
 					this.element.timeInterval = 20;
