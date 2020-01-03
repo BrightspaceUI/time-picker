@@ -41,7 +41,7 @@
   },
   "main": "d2l-time-picker.js",
   "dependencies": {
-    "@brightspace-ui/intl": "Brightspace/intl#v3",
+    "@brightspace-ui/intl": "^3",
     "@polymer/polymer": "^3.0.0",
     "@polymer/iron-selector": "^3.0.0-pre.18",
     "@polymer/iron-a11y-keys-behavior": "^3.0.0-pre.18",
