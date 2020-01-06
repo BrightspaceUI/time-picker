@@ -51,14 +51,11 @@ document.body.appendChild($_documentContainer.content);
 </script>
 	</head>
 	<body unresolved class="d2l-typography" onload="window.location.href.indexOf('dir=rtl') > -1 && document.body.setAttribute('dir', 'rtl');">
-		<script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<demo-snippet>
+		<demo-snippet>
 			<template>
 				<dom-bind>
 					<template is="dom-bind">
-						<label>Locale: <input value="{{locale::input}}"></label>
+						<label>Locale: <input value="en" id="language"></label>
 						<br>
 						<label>Timezone: <input value="{{timezone::input}}"></label>
 						<br>
@@ -67,14 +64,16 @@ $_documentContainer.innerHTML = `<demo-snippet>
 						<label>Interval: <input value="{{interval::input}}"></label>
 						<br>
 						<label for="time-picker-combobox">Time picker:</label>
-						<d2l-time-picker id="time-picker" time-interval="{{interval}}" hours="{{hours}}" minutes="{{minutes}}" locale="{{locale}}" timezone="{{timezone}}"></d2l-time-picker>
+						<d2l-time-picker id="time-picker" time-interval="{{interval}}" hours="{{hours}}" minutes="{{minutes}}" timezone="{{timezone}}"></d2l-time-picker>
 						<span>I am beside the time picker</span>
+						<script>
+							document.getElementById('language').addEventListener('change', function(evt) {
+								document.getElementsByTagName('html')[0].setAttribute('lang', evt.target.value);
+							});
+						</script>
 					</template>
 				</dom-bind>
 			</template>
-		</demo-snippet>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+		</demo-snippet>
 	</body>
 </html>

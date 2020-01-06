@@ -11,7 +11,8 @@ import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y
 import '@polymer/iron-selector/iron-selector.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-inputs/d2l-input-shared-styles.js';
-import d2lIntl from 'd2l-intl';
+import {getDocumentLocaleSettings} from '@brightspace-ui/intl/lib/common.js';
+import {formatTime, parseTime} from '@brightspace-ui/intl/lib/dateTime.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 const $_documentContainer = document.createElement('template');
@@ -142,25 +143,7 @@ Polymer({
 			notify: true,
 			observer: '_valueChanged'
 		},
-		locale: {
-			type: String,
-			value: ''
-		},
-		overrides: {
-			type: Object,
-			value: {}
-		},
 		timezone: String,
-		formatter: {
-			type: Object,
-			readOnly: true,
-			value: new d2lIntl.DateTimeFormat()
-		},
-		parser: {
-			type: Object,
-			readOnly: true,
-			value: new d2lIntl.DateTimeParse()
-		},
 		times: {
 			type: Object,
 			readOnly: true,
@@ -174,10 +157,9 @@ Polymer({
 	},
 
 	observers: [
-		'_updateFormater(locale, overrides)',
 		'updateValue(hours, minutes)',
 		'updateSelection(hours, minutes)',
-		'_updateTimes(timeInterval, formatter)'
+		'_updateTimes(timeInterval)'
 	],
 
 	listeners: {
@@ -199,15 +181,9 @@ Polymer({
 
 	// time display logic start
 
-	_updateFormater: function(locale, overrides) {
-		this._setFormatter(new d2lIntl.DateTimeFormat(locale, { locale: overrides }));
-		this._setParser(new d2lIntl.DateTimeParse(locale, { locale: overrides }));
-		this.updateValue(this.hours, this.minutes);
-	},
-
 	_valueChanged: function(value) {
 		this._closeTimesList(false);
-		var date = this.parser.parseTime(value);
+		var date = parseTime(value);
 		if (date) {
 			this._dontUpdateValue = true;
 			this.hours = date.getHours();
@@ -225,23 +201,25 @@ Polymer({
 	updateValue: function(hours, minutes) {
 		hours = +hours;
 		minutes = +minutes;
-		if (!this.formatter || this._dontUpdateValue) {
+		if (this._dontUpdateValue) {
 			return;
 		}
 		if (hours >= 0 && minutes >= 0) {
 			var dateDisplay = new Date(0, 0, 0, hours || 0, minutes || 0, 0, 0);
-			this.value = this.formatter.formatTime(dateDisplay);
+			this.value = formatTime(dateDisplay);
 		}
 	},
 
 	attached: function() {
 		document.body.addEventListener('focus', this.__onAutoCloseFocus, true);
 		document.body.addEventListener('click', this.__onAutoCloseClick, true);
+		getDocumentLocaleSettings().addChangeListener(this.__onLanguageChange);
 	},
 
 	detached: function() {
 		document.body.removeEventListener('focus', this.__onAutoCloseFocus, true);
 		document.body.removeEventListener('click', this.__onAutoCloseClick, true);
+		getDocumentLocaleSettings().removeChangeListener(this.__onLanguageChange);
 	},
 
 	// selection logic start
@@ -249,6 +227,7 @@ Polymer({
 	ready: function() {
 		this.__onAutoCloseFocus = this.__onAutoCloseFocus.bind(this);
 		this.__onAutoCloseClick = this.__onAutoCloseClick.bind(this);
+		this.__onLanguageChange = this.__onLanguageChange.bind(this);
 		this.id = this.id || ('d2l-time-picker-' + instances++);
 	},
 
@@ -265,14 +244,14 @@ Polymer({
 		this.$$('iron-selector').selectIndex(index);
 	},
 
-	_updateTimes: function(timeInterval, formatter) {
+	_updateTimes: function(timeInterval) {
 		var date = new Date(0, 0, 0, 0, 0, 0, 0);
 		var length = Math.ceil(24 * 60 / timeInterval);
 		var times = new Array(length);
 		for (var i = 0; i < length; i++) {
 			date.setHours(Math.floor(i / (60 / timeInterval)));
 			date.setMinutes((i % (60 / timeInterval)) * timeInterval);
-			times[i] = formatter.formatTime(date);
+			times[i] = formatTime(date);
 		}
 		this._setTimes(times);
 	},
@@ -332,6 +311,10 @@ Polymer({
 				this._onBlur();
 			}
 		}.bind(this), 1);
+	},
+
+	__onLanguageChange: function() {
+		this._updateTimes(this.timeInterval);
 	},
 
 	_onTimeInputFocused: function() {
