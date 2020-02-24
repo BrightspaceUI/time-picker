@@ -157,8 +157,7 @@ Polymer({
 		label: String,
 		invalid: {
 			type: Boolean,
-			value: false,
-			reflectToAttribute: true
+			value: false
 		}
 	},
 
