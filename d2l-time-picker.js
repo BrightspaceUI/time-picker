@@ -82,6 +82,7 @@ $_documentContainer.innerHTML = /*html*/`<dom-module id="d2l-time-picker">
 					aria-label$="{{label}}"
 					aria-owns$="{{listboxId}}"
 					aria-activedescendant$="{{selectedListboxId}}"
+					aria-invalid$="[[_computedAriaInvalid(invalid)]]"
 					on-focus="_onTimeInputFocused"
 					value="{{value::input}}">
 			</div>
@@ -153,7 +154,11 @@ Polymer({
 		_dropdownWidth: String,
 		listboxId: String,
 		selectedListboxId: String,
-		label: String
+		label: String,
+		invalid: {
+			type: Boolean,
+			value: false
+		}
 	},
 
 	observers: [
@@ -365,5 +370,9 @@ Polymer({
 				return;
 		}
 		e.preventDefault();
+	},
+
+	_computedAriaInvalid: function(invalid) {
+		return invalid ? 'true' : 'false';
 	}
 });
