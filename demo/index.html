@@ -63,8 +63,10 @@ document.body.appendChild($_documentContainer.content);
 						<label>Minutes: <input value="{{minutes::input}}"></label>
 						<label>Interval: <input value="{{interval::input}}"></label>
 						<br>
+						<label>Invalid: <input type="checkbox" value="{{invalid::change}}"></label>
+						<br>
 						<label for="time-picker-combobox">Time picker:</label>
-						<d2l-time-picker id="time-picker" time-interval="{{interval}}" hours="{{hours}}" minutes="{{minutes}}" timezone="{{timezone}}"></d2l-time-picker>
+						<d2l-time-picker id="time-picker" time-interval="{{interval}}" hours="{{hours}}" minutes="{{minutes}}" timezone="{{timezone}}" invalid="{{invalid}}"></d2l-time-picker>
 						<span>I am beside the time picker</span>
 						<script>
 							document.getElementById('language').addEventListener('change', function(evt) {
